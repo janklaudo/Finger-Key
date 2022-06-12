@@ -1,12 +1,20 @@
 
 from flask import Flask,jsonify, request
-
+import requests
 
 app = Flask(__name__)
 
 
 from Keys import Key
 
+@app.route('/External', methods=['GET'])
+def  ExternalAppi():
+   url = "https://api.apilayer.com/exchangerates_data/convert?to=GBP&from=EUR&amount=5"
+   payload = {}
+   headers= {"apikey": "UKCeXybh6ET4Uo7TtcwUFv5TpWrUmtDi"}
+   response = requests.request("GET", url, headers=headers, data = payload)
+   status_code = response.status_code
+   return response.text
 
 @app.route('/ping', methods=['GET'])
 
